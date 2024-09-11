@@ -6,15 +6,15 @@ class Tutorial1(QCAlgorithm):
 
     def initialize(self):
         # Locally Lean installs free sample data, to download more data please visit https://www.quantconnect.com/docs/v2/lean-cli/datasets/downloading-data
-        self.set_start_date(2013, 10, 7)  # Set Start Date
-        self.set_end_date(2013, 10, 11)  # Set End Date
-        self.set_cash(100000)  # Set Strategy Cash
-        self.spy = self.add_equity("SPY", Resolution.DAILY)
-        self.spy.set_data_normalization_mode(DataNormalizationMode.ADJUSTED)
+        self.SetStartDate(2022, 10, 7)  # Set Start Date
+        self.SetEndDate(2023, 10, 7)  # Set End Date
+        self.SetCash(100000)  # Set Strategy Cash
+        self.spy = self.AddEquity("SPY", Resolution.DAILY)
+        self.spy.SetDataNormalizationMode(DataNormalizationMode.ADJUSTED)
 
-        self.spy_symbol = self.spy.symbol
-        self.set_benchmark("SPY")
-        self.set_brokerage_model(BrokerageModel.InteractiveBrokersBrokerage,AccountType.CASH)
+        self.spy_symbol = self.spy.Symbol
+        self.SetBenchmark("SPY")
+        self.SetBrokerageModel(BrokerageName.InteractiveBrokersBrokerage, AccountType.CASH)
 
         self.entryPrice = 0
         self.period = timedelta(31)
@@ -30,15 +30,15 @@ class Tutorial1(QCAlgorithm):
         """
         if not self.spy_symbol in data:
             return
-        price = data[self.spy_symbol].close
-        if self.Portfolio.invested:
+        price = data[self.spy_symbol].Close
+        if self.Portfolio.Invested:
             if self.time >= self.nextEntryTime:
-                self.set_holdings(self.spy_symbol, 1)
-                self.debug("Purchased Stock @ " + str(price))
+                self.SetHoldings(self.spy_symbol, 1)
+                self.Debug("Purchased Stock @ " + str(price))
                 self.nextEntryTime = self.time + self.period
                 self.entryPrice = price
         elif price > self.entryPrice*1.1 or price < self.entryPrice*0.9:
-            self.set_holdings(self.spy_symbol, 0)
-            self.debug("Sold Stock @ " + str(price))
+            self.SetHoldings(self.spy_symbol, 0)
+            self.Debug("Sold Stock @ " + str(price))
             self.nextEntryTime = self.time + self.period
 
