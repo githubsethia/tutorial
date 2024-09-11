@@ -6,8 +6,8 @@ class Tutorial1(QCAlgorithm):
 
     def initialize(self):
         # Locally Lean installs free sample data, to download more data please visit https://www.quantconnect.com/docs/v2/lean-cli/datasets/downloading-data
-        self.SetStartDate(2022, 10, 7)  # Set Start Date
-        self.SetEndDate(2023, 10, 7)  # Set End Date
+        self.SetStartDate(2021, 1, 1)  # Set Start Date
+        self.SetEndDate(2021, 3, 1)  # Set End Date
         self.SetCash(100000)  # Set Strategy Cash
         self.spy = self.AddEquity("SPY", Resolution.DAILY)
         self.spy.SetDataNormalizationMode(DataNormalizationMode.ADJUSTED)
